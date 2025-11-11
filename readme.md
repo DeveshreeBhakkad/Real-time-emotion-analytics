@@ -32,14 +32,15 @@ cd Face_Expression_detection
 pip install -r requirements.txt
 ```
 Make sure you have Python 3.11 installed.
+---
 
 ▶️ Usage
 
-Run the main program:
+1. **Run the main program:**
 ```bash
 python main.py
 ```
-What happens next:
+2. **What happens next:**
 
 - 🖥️ Your webcam will open automatically
 - 🤖 The program will detect faces in real-time
@@ -47,7 +48,7 @@ What happens next:
 - ❌ Press q (if implemented) to close the webcam window- 
 
 **Project Structure**
-
+```bash
 Face_Expression_detection/
 │
 ├── main.py            # Main script to run the program
@@ -56,10 +57,10 @@ Face_Expression_detection/
 ├── .gitignore         # Git ignore file
 ├── model/             # Optional: saved trained models
 └── dataset/           # Optional: sample dataset
-
+```
 📝**Notes**
 
--  ⚠️ TensorFlow and OpenCV may show some informational warnings during runtime. These do not affect the program functionality
+-  ⚠️ TensorFlow and OpenCV may show some informational warnings during runtime. These do not affect the     program functionality
 -  If using custom models, place them in the model/ folder
 -  The dataset/ folder is optional and can be used to test the program with images
 
