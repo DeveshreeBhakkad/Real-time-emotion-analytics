@@ -11,7 +11,7 @@ import time
 
 # -------------------- PAGE CONFIG --------------------
 
-st.set_page_config(
+t.set_page_config(
     page_title="Emotion Analytics Dashboard",
     layout="wide"
 )
