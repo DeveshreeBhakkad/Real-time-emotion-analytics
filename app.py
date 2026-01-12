@@ -1,6 +1,6 @@
-# ============================================================
-# Real-Time Emotion Analytics Dashboard (Final Polished UI)
-# ============================================================
+
+# Real-Time Emotion Analytics Dashboard 
+
 
 import cv2
 import streamlit as st
