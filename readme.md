@@ -66,14 +66,18 @@ This project demonstrates:
 
 - **Control Panel**
   - Start / Stop emotion detection
+
 - **Metrics Section**
   - Faces Analyzed
   - Frames Processed
   - Overall Mood
+
 - **Live Video Feed**
   - Real-time annotated webcam view
+
 - **Analytics Chart**
   - Emotion distribution during the session
+  
 - **Session Summary**
   - Emotion percentages after stopping detection
 
