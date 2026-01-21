@@ -1,5 +1,5 @@
 import streamlit as st
-import cv2
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -11,6 +11,9 @@ st.set_page_config(
     layout="wide"
 )
 
+# ---------------- ENV CHECK ----------------
+IS_CLOUD = os.environ.get("STREAMLIT_SERVER_HEADLESS") == "true"
+
 # ---------------- SESSION STATE ----------------
 if "running" not in st.session_state:
     st.session_state.running = False
@@ -19,16 +22,10 @@ if "emotion_log" not in st.session_state:
 if "frames" not in st.session_state:
     st.session_state.frames = 0
 
-# ---------------- FIXED TOP BAR ----------------
+# ---------------- FIXED FOOTER STYLE ----------------
 st.markdown(
     """
     <style>
-    .top-bar {
-        position: fixed;
-        top: 60px;
-        right: 30px;
-        z-index: 9999;
-    }
     .footer-warning {
         position: fixed;
         bottom: 0;
@@ -59,11 +56,11 @@ st.markdown(
 )
 
 # ---------------- START / STOP (TOP RIGHT) ----------------
-with st.container():
-    st.markdown('<div class="top-bar">', unsafe_allow_html=True)
-    start = st.button("🟢 Start", key="start_btn")
-    stop = st.button("🔴 Stop", key="stop_btn")
-    st.markdown('</div>', unsafe_allow_html=True)
+btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([4, 1, 1, 1])
+
+with btn_col4:
+    start = st.button("🟢 Start")
+    stop = st.button("🔴 Stop")
 
 if start:
     st.session_state.running = True
@@ -73,13 +70,22 @@ if start:
 if stop:
     st.session_state.running = False
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # ---------------- MAIN LAYOUT ----------------
 left_col, center_col, right_col = st.columns([1.2, 2.2, 2])
 
-# ---------------- LIVE CAMERA ----------------
-if st.session_state.running:
+# ---------------- CLOUD MESSAGE ----------------
+if IS_CLOUD:
+    center_col.info(
+        "🔒 Live webcam access is disabled on Streamlit Cloud.\n\n"
+        "Run this app locally to enable real-time emotion detection."
+    )
+
+# ---------------- LIVE CAMERA (LOCAL ONLY) ----------------
+if st.session_state.running and not IS_CLOUD:
+    import cv2
+
     cap = cv2.VideoCapture(0)
     cam_box = center_col.empty()
 
@@ -102,7 +108,7 @@ if st.session_state.running:
 
             face = result[0]["region"]
             x, y, w, h = face["x"], face["y"], face["w"], face["h"]
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(
                 frame,
                 emotion,
@@ -123,18 +129,18 @@ if st.session_state.running:
 with left_col:
     st.markdown("### Faces Analyzed")
     st.markdown(f"## {len(st.session_state.emotion_log)}")
-    st.progress(min(len(st.session_state.emotion_log)/100, 1.0))
+    st.progress(min(len(st.session_state.emotion_log) / 100, 1.0))
 
     st.markdown("### Frames Processed")
     st.markdown(f"## {st.session_state.frames}")
-    st.progress(min(st.session_state.frames/100, 1.0))
+    st.progress(min(st.session_state.frames / 100, 1.0))
 
     if st.session_state.emotion_log:
         mood = Counter(st.session_state.emotion_log).most_common(1)[0][0]
         st.markdown("### Overall Mood")
         st.markdown(f"## {mood.capitalize()}")
 
-# ---------------- SESSION SUMMARY AFTER STOP ----------------
+# ---------------- SESSION SUMMARY ----------------
 if not st.session_state.running and st.session_state.emotion_log:
     counts = Counter(st.session_state.emotion_log)
     df = pd.DataFrame(counts.items(), columns=["Emotion", "Count"])
@@ -144,6 +150,8 @@ if not st.session_state.running and st.session_state.emotion_log:
         st.markdown("## 📊 Session Summary")
         fig, ax = plt.subplots()
         ax.bar(df["Emotion"], df["Count"])
+        ax.set_xlabel("Emotion")
+        ax.set_ylabel("Count")
         st.pyplot(fig)
 
     with right_col:
@@ -151,7 +159,12 @@ if not st.session_state.running and st.session_state.emotion_log:
         st.dataframe(df, use_container_width=True)
 
         fig2, ax2 = plt.subplots()
-        ax2.pie(df["Count"], labels=df["Emotion"], autopct="%1.1f%%")
+        ax2.pie(
+            df["Count"],
+            labels=df["Emotion"],
+            autopct="%1.1f%%",
+            startangle=90
+        )
         ax2.axis("equal")
         st.pyplot(fig2)
 
