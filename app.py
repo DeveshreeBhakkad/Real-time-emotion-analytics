@@ -15,14 +15,7 @@ st.set_page_config(
 with open("ui/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Remove Streamlit horizontal line
-st.markdown("""
-<style>
-hr { display: none !important; }
-</style>
-""", unsafe_allow_html=True)
-
-# ================= HEADER =================
+# ================= HEADER (FIXED + CENTERED) =================
 st.markdown("""
 <div class="header">
   <h1>Real-Time Face Emotion Analytics</h1>
@@ -38,17 +31,9 @@ if "emotions" not in st.session_state:
 if "frames" not in st.session_state:
     st.session_state.frames = 0
 
-# ================= FIXED CONTROLS (TOP LEFT) =================
+# ================= FIXED CONTROLS =================
 st.markdown("""
-<div style="
-    position: fixed;
-    top: 120px;
-    left: 20px;
-    z-index: 5000;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-">
+<div class="controls">
 """, unsafe_allow_html=True)
 
 start = st.button("🟢 Start")
@@ -65,32 +50,31 @@ if stop:
     st.session_state.running = False
 
 # ================= MAIN LAYOUT =================
-col_cards, col_video, col_summary = st.columns([1, 1.4, 1.2], gap="medium")
+col_cards, col_video, col_summary = st.columns([1, 1.5, 1.3], gap="medium")
 
 # ================= METRIC CARDS =================
 with col_cards:
-    st.markdown("<div class='metric-card compact'>", unsafe_allow_html=True)
+    st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
     st.subheader("Faces Analyzed")
     faces = len(st.session_state.emotions)
     st.markdown(f"### {faces}")
     st.progress(min(faces / 50, 1.0))
     st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("<div class='metric-card compact'>", unsafe_allow_html=True)
+    st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
     st.subheader("Frames Processed")
     st.markdown(f"### {st.session_state.frames}")
     st.progress(min(st.session_state.frames / 50, 1.0))
     st.markdown("</div>", unsafe_allow_html=True)
 
     mood = Counter(st.session_state.emotions).most_common(1)[0][0] if st.session_state.emotions else "—"
-
-    st.markdown("<div class='metric-card compact'>", unsafe_allow_html=True)
+    st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
     st.subheader("Overall Mood")
     st.markdown(f"### {mood.capitalize()}")
     st.progress(1.0)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ================= VIDEO + FACE BOX =================
+# ================= VIDEO FEED =================
 with col_video:
     st.subheader("Live Camera Feed")
     video_box = st.empty()
@@ -145,7 +129,6 @@ with col_video:
 with col_summary:
     if not st.session_state.running and st.session_state.emotions:
         st.subheader("📊 Session Summary")
-
         counts = Counter(st.session_state.emotions)
         df = pd.DataFrame(counts.items(), columns=["Emotion", "Count"]).set_index("Emotion")
         st.bar_chart(df)
