@@ -1,0 +1,78 @@
+/* Remove Streamlit default top separator line */
+header[data-testid="stHeader"] {
+  display: none;
+}
+
+/* Main app background spacing */
+.block-container {
+  padding-top: 70px !important;
+  padding-bottom: 80px !important;
+}
+
+/* Fixed Header */
+.app-header {
+  position: relative;
+  width: 100%;
+  text-align: center;          /* 🔴 THIS is the key */
+  padding-top: 16px;           /* keeps it high, not pushed down */
+  padding-bottom: 12px;
+  margin-top: 0;
+}
+
+.app-header h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.app-header p {
+  font-size: 1.05rem;
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+
+/* Sidebar spacing */
+section[data-testid="stSidebar"] {
+  padding-top: 80px;
+}
+
+/* Metric cards */
+.metric-card {
+  background: #161b22;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+/* Smaller video frame */
+.video-box img {
+  border-radius: 12px;
+  max-width: 92%;
+}
+
+/* Footer caution */
+.footer-warning {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #0e1117;
+  border-top: 1px solid #1f2937;
+  text-align: center;
+  padding: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #facc15;
+  z-index: 999;
+}
+
+.metric-card.compact {
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.metric-card.compact h3 {
+  margin-bottom: 6px;
+}
+
