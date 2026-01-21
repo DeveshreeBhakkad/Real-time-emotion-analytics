@@ -3,7 +3,6 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter
-from deepface import DeepFace
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
@@ -55,7 +54,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------- START / STOP (TOP RIGHT) ----------------
+# ---------------- START / STOP ----------------
 btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([4, 1, 1, 1])
 
 with btn_col4:
@@ -85,6 +84,7 @@ if IS_CLOUD:
 # ---------------- LIVE CAMERA (LOCAL ONLY) ----------------
 if st.session_state.running and not IS_CLOUD:
     import cv2
+    from deepface import DeepFace  # LAZY IMPORT (KEY FIX)
 
     cap = cv2.VideoCapture(0)
     cam_box = center_col.empty()
