@@ -1,9 +1,8 @@
-
 # 🎭 Real-Time Emotion Analytics Dashboard
 
 > "The face is a window to the emotions within." 😊
 
-> A real-time facial emotion recognition system with an industry-style analytics dashboard.
+> A real-time facial emotion recognition system with an industry-inspired analytics dashboard.
 
 This project detects human emotions from a live webcam feed using deep learning and visualizes session-based emotion insights through a clean, professional dashboard UI.
 
@@ -13,7 +12,7 @@ The focus of this project is not only **emotion detection**, but also **how AI o
 
 ## 📌 Project Overview
 
-The **Real-Time Emotion Analytics Dashboard** captures live video frames, detects faces, analyzes facial expressions using a deep learning model, and displays meaningful analytics such as:
+The **Real-Time Emotion Analytics Dashboard** captures live video frames, analyzes facial expressions using a deep learning model, and displays meaningful analytics such as:
 
 - Number of faces analyzed
 - Frames processed
@@ -35,8 +34,8 @@ This project demonstrates:
 - 📊 Real-time analytics dashboard  
 - 📈 Session-based emotion statistics  
 - 🟢 Start / 🔴 Stop detection controls  
-- 🧩 Emotion smoothing to reduce flickering predictions  
-- 🖥️ Clean, industry-style dashboard UI  
+- 🧩 Temporal smoothing to reduce prediction flickering  
+- 🖥️ Clean, industry-inspired dashboard UI  
 
 ---
 
@@ -47,6 +46,7 @@ This project demonstrates:
 - **Deep Learning:** TensorFlow, DeepFace  
 - **Web Framework:** Streamlit  
 - **Data Processing:** Pandas  
+- **Visualization:** Matplotlib  
 - **UI Styling:** Custom CSS (Streamlit)  
 
 ---
@@ -54,11 +54,25 @@ This project demonstrates:
 ## 🧠 System Architecture (High-Level)
 
 1. Webcam captures live video frames  
-2. Faces are detected using Haar Cascade classifier  
+2. Faces are detected using DeepFace’s internal face detection pipeline  
 3. Each detected face is passed to a deep learning emotion model  
 4. Emotion predictions are stabilized using recent frame history  
 5. Emotion counts are collected during the session  
 6. Dashboard updates metrics and charts in real time  
+
+---
+
+## 🧠 Model Details
+
+This project uses **pre-trained Convolutional Neural Networks (CNNs)** provided by the **DeepFace** framework for emotion recognition.
+
+Rather than training a CNN from scratch, the focus of this project is on:
+- Integrating a deep learning model into a real-time system  
+- Managing inference, session state, and analytics  
+- Presenting AI outputs through an interpretable dashboard  
+
+This mirrors real-world industry scenarios where engineers often work with<br>
+pre-trained models and focus on **system design, deployment, and user-facing analytics**.
 
 ---
 
@@ -73,13 +87,14 @@ This project demonstrates:
   - Overall Mood
 
 - **Live Video Feed**
-  - Real-time annotated webcam view
+  - Real-time annotated webcam view (local execution)
 
-- **Analytics Chart**
-  - Emotion distribution during the session
-  
+- **Analytics Charts**
+  - Emotion distribution (bar chart)
+  - Emotion percentages (table & pie chart)
+
 - **Session Summary**
-  - Emotion percentages after stopping detection
+  - Post-session emotion insights after stopping detection
 
 ---
 
@@ -91,7 +106,7 @@ This project demonstrates:
   - Lighting conditions
   - Camera quality
   - Face angle and occlusions
-- Requires webcam access (local execution only)
+- Requires webcam access (local execution)
 - Not optimized for large-scale or multi-camera deployment
 
 ---
@@ -118,9 +133,17 @@ pip install -r requirements.txt
 ### 4️⃣ Run the Application
 ```bash
 python -m streamlit run app.py
-```
+``` 
 
-## 📁 Project Structure
+---
+
+## 🌐 Deployment Note
+
+Due to browser and hosting restrictions, live webcam access via OpenCV is supported only in local environments.
+
+The deployed Streamlit version focuses on demonstrating the dashboard UI, analytics flow, and session-based emotion insights.
+
+📁 Project Structure
 ```bash
 Face_Expression_detection/
 │
@@ -131,19 +154,20 @@ Face_Expression_detection/
 └── venv/                # Virtual environment (local)
 ```
 
+---
 
 ## 📌 Future Enhancements
 
 - Emotion trend analysis over time
--  Confidence threshold tuning
+- Confidence threshold tuning
 - Export session analytics as CSV
 - Multi-face comparative analytics
 
 👩‍💻 Author
 
-Deveshree
-Final Year AIML Student
-Focused on building practical AI systems with real-world usability.
+Deveshree<br>
+Final Year AIML Student<br>
+Focused on building practical AI systems with real-world usability.<br>
 
 ---
 
