@@ -163,7 +163,9 @@ Face_Expression_detection/
 - Export session analytics as CSV
 - Multi-face comparative analytics
 
-👩‍💻 Author
+---
+
+## 👩‍💻 Author
 
 Deveshree<br>
 Final Year AIML Student<br>
