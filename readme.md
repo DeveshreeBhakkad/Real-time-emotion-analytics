@@ -10,6 +10,32 @@ The focus of this project is not only **emotion detection**, but also **how AI o
 
 ---
 
+## 📸 Preview
+
+### Dashboard Interface
+![Main Interface](demo.png)
+
+---
+
+### Session Analytics
+![Emotion Analytics Dashboard](dashboard.png)
+> Real-time emotion distribution with bar chart, 
+> pie chart and session summary
+
+---
+
+## 🎯 Research Motivation
+Emotion recognition in real-time systems presents key 
+research challenges around:
+- Temporal stability of predictions across frames
+- Interpretable AI output for non-technical users
+- Bridging deep learning inference with analytics systems
+This project explores how computer vision models can be 
+deployed in practical, user-facing applications — directly 
+relevant to Healthcare AI and Human-Computer Interaction research.
+
+---
+
 ## 📌 Project Overview
 
 The **Real-Time Emotion Analytics Dashboard** captures live video frames, analyzes facial expressions using a deep learning model, and displays meaningful analytics such as:
