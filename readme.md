@@ -2,7 +2,7 @@
 
 > "The face is a window to the emotions within." 😊
 
-> A real-time facial emotion recognition system with an industry-inspired analytics dashboard.
+ A real-time facial emotion recognition system with an industry-inspired analytics dashboard.
 
 This project detects human emotions from a live webcam feed using deep learning and visualizes session-based emotion insights through a clean, professional dashboard UI.
 
